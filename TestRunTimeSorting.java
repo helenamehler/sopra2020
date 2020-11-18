@@ -14,8 +14,8 @@ public class TestRunTimeSorting extends AbstractTestRunTimeSorting implements Ex
 	private Integer[] sortedArray;
 	private Integer[] shuffledArray;
 	
-	private SimplesortImpl<Integer> ssi;
-	private QuicksortImpl<Integer> qsi;
+	private Simplesort<Integer> ssi;
+	private Quicksort<Integer> qsi;
 	private Stopwatch stopwatch;
 	
 	@Before
