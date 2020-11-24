@@ -1,70 +1,72 @@
 package solutions.exercise2;
 
 import java.util.Comparator;
-
-import org.sopra.api.ConstructionCostCalculatorImpl;
 import org.sopra.api.Scenario;
-import org.sopra.api.exercises.ExerciseSubmission;
 import org.sopra.api.model.PlayfieldElement;
 import org.sopra.api.model.producer.ProducerType;
+import org.sopra.api.ConstructionCostCalculatorImpl;
+import org.sopra.api.exercises.ExerciseSubmission;
 
-/**
- *  This class provides a method to compare two PlayfieldElements of the same producerType
+
+/*
+ * This is a class to compare different PlayfieldElements based on the ConstructionCosts for a specific ProducerType.
+ * @author G03T03 
+ * @version 1.0
  * 
- * @author G03T03
  */
-
-
-public class PlayfieldElementComparator implements ExerciseSubmission, Comparator<PlayfieldElement> {
+public class PlayfieldElementComparator implements Comparator<PlayfieldElement>, ExerciseSubmission {
 	
+	private ConstructionCostCalculatorImpl constrCostCalci;
 	private ProducerType producerType;
-	private ConstructionCostCalculatorImpl ccci;
 	
-	/**
-	 * Constructor of a PlayfieldElementComparator, which creates a new instance of the class ConstructionCostCalculatorImpl
-	 * object variables producerType and constructionCostCalculatorImpl are given a value
+	/*
+	 * This is the constructor of a PlayFieldComparator which creates a new instance of the class ConstructionCostCalculatorImpl.
+	 * Object variables producerType and constructionCostCalculatorImpl are instantiated.
 	 * 
-	 * @param producerType type of the producer which will be compared
-	 * @param scenario scenario data type the game is played on
-	 * @exception NullPointerException if either scenario or producerType is null
+	 * @param producertype type of Producer which will be compared
+	 * @param scenario data type the game is played on
+	 * @exception NullPointerException if either the ProducerType or the Scenario is null.
 	 */
-
-	public PlayfieldElementComparator(ProducerType producerType, Scenario scenario) throws NullPointerException{
-		if(producerType == null || scenario == null) {
+	public PlayfieldElementComparator(ProducerType producertype, Scenario scenario) {
+		if (producertype == null || scenario == null) {
 			throw new NullPointerException("ProducerType or Scenario is not allowed to be null.");
+			
 		} else {
-		ConstructionCostCalculatorImpl ccci = new ConstructionCostCalculatorImpl(scenario);
-		this.producerType = producerType;
-		this.ccci = ccci;
-		}
+		ConstructionCostCalculatorImpl constrCostCalci = new ConstructionCostCalculatorImpl(scenario);
+		
+		this.producerType = producertype;
+		this.constrCostCalci = constrCostCalci;
+	    }
 	}
 	
-
-	/**
-	 * compares two playfieldElements in their aptitude to build on it
+	
+	/*
+	 * Method to compare two PlayfieldElements with each other to determine which of them is the better option for building.
 	 * 
-	 * @param e1 the first playfieldElement to be compared
-	 * @param e2 the second playfieldElement to be compared
-	 * @return a negative integer if the second playfieldElement is better, 
-	 * 			zero if they are both suitable and a positive integer if the first one is better
-	 * @exception NullPointerException if either one of the playfieldElements is null
+	 * @param e1 first PlayfieldElement to be compared
+	 * @param e2 second PlayfieldElement to be compared
+	 * @return A negative integer value if the costs of PlayfieldElement e2 are less then the costs of PlayfieldElement e1,
+	 *         zero if the costs of PlayfieldElement e2 and e1 are even
+	 *         and a positive integer value if the costs of PlayfieldElement e2 are more then the costs of PlayfieldElement e1.
+	 * 
+	 * @exception NullPointerException if one of the PlayfieldElements is null.
 	 */
-
-	public int compare(PlayfieldElement e1, PlayfieldElement e2) throws NullPointerException {
-		if(e1 == null || e2 == null) {
-			throw new NullPointerException("Not allowed to be null.");
+	public int compare(PlayfieldElement e1, PlayfieldElement e2) {
+		if (e1 == null || e2 == null) {
+			throw new NullPointerException("PlayfieldElement e1 or e2 are not allowed to be null.");
 		} else {
-		return (int) ccci.calculateCost(e2, producerType) - (int) ccci.calculateCost(e1, producerType);
+		return ((int) constrCostCalci.calculateCost(e2, producerType) - (int) constrCostCalci.calculateCost(e1, producerType));
 		}
-	}
+    }
+
 	
-	/**
-	 * Returns Team Identifier
-	 *
-	 * @return String with team identifier
+	/*
+	 * Method to get the TeamIdentifier.
+	 * 
+	 * @return String with team identification
 	 */
 	public String getTeamIdentifier() {
 		return "G03T03";
 	}
+
 }
-//Felix war hier
