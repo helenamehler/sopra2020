@@ -127,42 +127,6 @@ public class QuicksortTest extends AbstractQuicksortTest implements ExerciseSubm
 		} catch(IllegalArgumentException e) {
 			//expected
 		}
-		/*
-		try {
-			sut.quicksort(arrayEmpty, 0, 0);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		
-		try {
-			sut.quicksort(arrayOne, -1, 0);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		
-		try {
-			sut.quicksort(arrayOne, 0, -1);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		
-		try {
-			sut.quicksort(arrayOne, 0, 1);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		
-		try {
-			sut.quicksort(arrayOne, 1, 0);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}*/
-		
 		try {
 			sut.quicksort(arrayTwo, 2, 1);
 			fail();
