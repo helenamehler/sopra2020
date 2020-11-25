@@ -4,135 +4,84 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 import org.sopra.api.exercises.ExerciseSubmission;
 import org.sopra.api.exercises.exercise2.AbstractQuicksortTest;
 
 public class QuicksortTest extends AbstractQuicksortTest implements ExerciseSubmission {
 
-	Integer[] arrayEmpty	= {};
-	Integer[] arrayOne 	 	= {1};
-	Integer[] arrayTwo   	= {2,4,3,5,1};
-	Integer[] partitionOne	= {2,1,3,5,4};
-	Integer[] arrayTwoSol	= {1,2,3,4,5};
-	Integer[] arraySmallSol	= {3,4,5};
-	Integer[] testArray;
-	
-	@Override
 	public String getTeamIdentifier() {
 		return "G03T03";
 	}
 
-	@Override
+	Integer[] test1 = { 7, 6, 5, 4, 3, 2, 1 };
+	Integer[] sort1 = { 1, 2, 3, 4, 5, 6, 7 };
+
+	Integer[] test2 = { 5, 6, 3, 1, 9, 3, 12 };
+	Integer[] part2 = { 5, 1, 3, 6, 9, 3, 12 };
+	Integer[] sort2 = { 1, 3, 5, 6, 9, 3, 12 };
+
+	Integer[] test3 = { 2, 101, 7, 25, 16, 33, 1 };
+	Integer[] part3 = { 2, 7, 101, 25, 16, 33, 1 };
+	Integer[] sort3 = { 2, 7, 25, 101, 16, 33, 1 };
+
 	@Test
 	public void testPartition() {
-		testArray = arrayOne;
-		//basic test if it doesn't have to change anything
-		sut.partition(testArray, 0, 0);
-		assertArrayEquals(testArray, arrayOne);
-		
-		//tests if it sorts like it should and if the methods finds the right pivot index if left + right is even
-		testArray = arrayTwo;
-		assertEquals(sut.partition(testArray, 0, 4), 3);
-		assertArrayEquals(testArray, partitionOne);
-		
-		//tests if partition finds the right pivot index if left + right is an uneven number
-		testArray = Arrays.copyOfRange(arrayTwo, 0, 4);
-		assertEquals(sut.partition(testArray, 0, 3), 1);
-		
-		//tests if it finds the right pivot element, of a part of the array
-		assertEquals(sut.partition(testArray, 2, 3), 3); //why is (int) 2.5 = 2 ?
+		assertEquals(sut.partition(test1, 0, 6), 4);
+		assertArrayEquals(test1, sort1);
+
+		assertEquals(sut.partition(test2, 0, 3), 3);
+		assertArrayEquals(test2, part2);
+
+		assertEquals(sut.partition(test3, 1, 3), 2);
+		assertArrayEquals(test3, part3);
+
 	}
 
-	@Override
 	@Test
 	public void testPartition_Parameters() {
 		try {
-			sut.partition(null, 0, 0);
+			sut.quicksort(null, 0, 2);
 			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
+		} catch (IllegalArgumentException e) {
 		}
-		
 		try {
-			sut.partition(arrayEmpty, 0, 0);
+			sut.quicksort(test1, 1, 0);
 			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
+		} catch (IllegalArgumentException e) {
 		}
-		
 		try {
-			sut.partition(arrayOne, -1, 0);
+			sut.quicksort(test1, 1, 7);
 			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
+		} catch (IllegalArgumentException e) {
 		}
-		
 		try {
-			sut.partition(arrayOne, 0, -1);
+			sut.quicksort(test1, -1, 3);
 			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		
-		try {
-			sut.partition(arrayOne, 0, 1);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		
-		try {
-			sut.partition(arrayOne, 1, 0);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		
-		try {
-			sut.partition(arrayTwo, 2, 1);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
+		} catch (IllegalArgumentException e) {
 		}
 	}
 
-	@Override
 	@Test
 	public void testQuicksort() {
-		//basic Test
-		testArray = arrayOne;
-		sut.quicksort(testArray, 0, 0);
-		assertArrayEquals(testArray, arrayOne);
-		
-		//small test
-		testArray = Arrays.copyOfRange(arrayTwo, 1, 4);
-		sut.quicksort(testArray, 0, 2);
-		assertArrayEquals(testArray, arraySmallSol);
-		
-		//normal test
-		sut.quicksort(arrayTwo, 0, 4);
-		assertArrayEquals(arrayTwo, arrayTwoSol);
-		
+
+		sut.quicksort(test1, 0, 6);
+		assertArrayEquals(test1, sort1);
+
+		sut.quicksort(test2, 0, 3);
+		assertArrayEquals(test2, sort2);
+
+		sut.quicksort(test3, 1, 3);
+		assertArrayEquals(test3, sort3);
+
 	}
 
-	@Override
 	@Test
 	public void testQuicksort_Parameters() {
 		try {
-			sut.quicksort(null, 0, 0);
+			sut.quicksort(null, 0, 2);
 			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
-		}
-		try {
-			sut.quicksort(arrayTwo, 2, 1);
-			fail();
-		} catch(IllegalArgumentException e) {
-			//expected
+		} catch (IllegalArgumentException e) {
 		}
 	}
-
 }
