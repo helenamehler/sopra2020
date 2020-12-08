@@ -13,6 +13,11 @@ import org.sopra.api.exercises.exercise3.FlowGraph;
 import org.sopra.api.exercises.exercise3.ResidualEdge;
 import org.sopra.api.exercises.exercise3.ResidualGraph;
 
+/**
+ * This class describes a residual graph
+ * 
+ * @author G03T03
+ */
 public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmission {
 
 	/**
@@ -21,12 +26,11 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 	private Map<V, List<ResidualEdge<V>>> graph;
 
 	/**
-	 * constructor of this residual graph which initializes this graph with a
-	 * HashMap and takes over the nodes and edges of the given flow graph
+	 * Constructor of ResidualGraph which instantiates this graph with a
+	 * HashMap. It adopts the nodes and edges of the given FlowGraph
 	 * 
 	 * @param flowGraph - flow graph which entries will be converted into those of a
 	 *                  residual graph
-	 * @since 1.0
 	 */
 
 	public ResidualGraphImpl(FlowGraph<V> flowGraph) {
@@ -65,15 +69,6 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 
 					// add flow
 					edge1.addFlow(flowEdge.getFlow());
-					/*
-					 * //adding edge from start node graph.get(node).add(new
-					 * ResidualEdgeImpl<V>(flowEdge.getStart(), flowEdge.getEnd(),
-					 * flowEdge.getCapacity())); //adding reverse edge
-					 * graph.get(flowEdge.getEnd()).add(new ResidualEdgeImpl<V>(flowEdge.getEnd(),
-					 * flowEdge.getStart(), flowEdge.getCapacity())); //setting reverse edges
-					 * graph.get(node).get(graph.get(node).size()).setReverse(graph.get(flowEdge.
-					 * getEnd()).get(graph.get(flowEdge.getEnd()).size()));
-					 */
 				} else {
 					// adding flow
 					getEdge(node, flowEdge.getEnd()).addFlow(flowEdge.getFlow());
@@ -84,21 +79,18 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 	}
 
 	/**
-	 * gives back the nodes starting from the given node
+	 * gives back the edges starting from the given node
 	 * 
-	 * @param node - the starting node which the edges start from
+	 * @param node - the node which the edges start from
 	 * @return a list of all residual edges which start from the given node
 	 * @exception NoSuchElementException - if node doesn't exist
-	 * @since 1.0
 	 */
 
-	@Override
 	public List<ResidualEdge<V>> edgesFrom(V node) {
 		// throws exception if node doesn't exist
 		if (node == null || !contains(node)) {
 			throw new NoSuchElementException();
 		}
-		// exception if node is null?
 
 		// returning list of edges
 		return graph.get(node);
@@ -115,10 +107,8 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 	 * @exception IllegalArgumentException - if one parameter is null
 	 * @exception NoSuchElementException   - if at least one node is not contained
 	 *                                     in graph
-	 * @since 1.0
 	 */
 
-	@Override
 	public ResidualEdge<V> getEdge(V start, V end) {
 		if (start == null || end == null) {
 			throw new IllegalArgumentException("at least one node is null");
@@ -144,10 +134,8 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 	 * 
 	 * @return a list of all residual edges of this graph, if there is no edge
 	 *         inside this graph it will return an empty list
-	 * @since 1.0
 	 */
 
-	@Override
 	public List<ResidualEdge<V>> getEdges() {
 		// new list which will be returned
 		List<ResidualEdge<V>> returnList = new ArrayList<>();
@@ -164,10 +152,8 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 	 * returns all nodes of this graph
 	 * 
 	 * @return a set of all nodes
-	 * @since 1.0
 	 */
 
-	@Override
 	public Set<V> getNodes() {
 		return graph.keySet();
 	}
@@ -178,7 +164,6 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 	 * @param edge - given edge which method tries to find in graph
 	 * @return true if graph contains edge, false if not
 	 * @exception IllegalArgumentException - if given edge is null
-	 * @since 1.0
 	 */
 
 	private boolean contains(org.sopra.api.model.Edge<V> e) {
@@ -205,7 +190,6 @@ public class ResidualGraphImpl<V> implements ResidualGraph<V>, ExerciseSubmissio
 	 * @param node - node which is to be checked, which also has generic type
 	 * @return true if graph contains this node, false if not
 	 * @exception IllegalArgumentException - if node is null
-	 * @since 1.0
 	 */
 
 	private boolean contains(V node) {
