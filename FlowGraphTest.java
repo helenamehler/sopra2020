@@ -20,7 +20,7 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 	}
 
 	/**
-	 * to compare two flowEdges, if the capacity, the start and end node are the
+	 * to compare two flowEdges. If the capacity, the start and end node are the
 	 * same, they are considered equal
 	 * 
 	 * @param edge1 first FlowEdge to be compared
@@ -37,9 +37,9 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 		}
 		return false;
 	}
-	
+
 	/**
-	 *  adds all nodes
+	 * adds all nodes
 	 */
 	public void nodesAdd() {
 		sut.addNode("s");
@@ -47,20 +47,14 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 		sut.addNode("v");
 		sut.addNode("t");
 	}
+
 	/**
 	 * adds all edges
 	 */
 	public void EdgesAdd() {
-		sut.addEdge("s", "u", 5);
-		sut.addEdge("u", "s", 5);
-		sut.addEdge("v", "s", 7);
-		sut.addEdge("s", "v", 7);
-		sut.addEdge("u", "v", 9);
-		sut.addEdge("v", "u", 9);
-		sut.addEdge("v", "t", 6);
-		sut.addEdge("t", "v", 6);
-		sut.addEdge("u", "t", 4);
-		sut.addEdge("t", "u", 4);
+		for (FlowEdge<String> edge : edges) {
+			sut.addEdge(edge.getStart(), edge.getEnd(), edge.getCapacity());
+		}
 	}
 
 	@Test
@@ -103,7 +97,7 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 	}
 
 	@Test
-	public void test_addNode() { 
+	public void test_addNode() {
 		assertEquals(sut.addNode("s"), true);
 		assertEquals(sut.getNodes().contains(nodes[0]), true);
 		assertEquals(sut.addNode("s"), false);
@@ -111,10 +105,10 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 	}
 
 	@Test
-	public void test_containsNode() { 
+	public void test_containsNode() {
 		nodesAdd();
 		EdgesAdd();
-		
+
 		assertEquals(sut.containsNode("a"), false);
 		assertEquals(sut.containsNode("s"), true);
 		assertEquals(sut.containsNode("t"), true);
@@ -153,15 +147,14 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 	}
 
 	@Test
-	public void test_getNodes() { 
+	public void test_getNodes() {
 		Set<String> list1 = sut.getNodes();
 		if (list1 == null) {
 			fail();
 		}
 		assertEquals(list1.isEmpty(), true);
-		
-		nodesAdd();
 
+		nodesAdd();
 
 		Set<String> test = sut.getNodes();
 		assertEquals(test.size(), nodes.length);
@@ -171,7 +164,7 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 	}
 
 	@Test
-	public void test_edgesFrom() { 
+	public void test_edgesFrom() {
 		nodesAdd();
 
 		FlowEdge<String> edge1 = sut.addEdge("s", "u", 5);
@@ -195,6 +188,12 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 		assertEquals(test.contains(edge5), true);
 		assertEquals(test.size(), 3);
 
+		// here i make another test because there was an error in the framework which
+		// said,
+		// that random nodes are being removed. I'm not sure how the second test helps
+		// but the error did not show after.
+		// especially because tests on the nodes specifically (like are 4 nodes are in
+		// the graph?) does not work with the error
 		Collection<FlowEdge<String>> test2 = sut.edgesFrom("s");
 
 		if (test2 == null) {
