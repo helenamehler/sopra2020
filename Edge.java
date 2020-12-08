@@ -16,7 +16,7 @@ abstract class Edge<V> implements CapacityEdge<V>, ExerciseSubmission {
 	protected V endNode;
 
 	/**
-	 * returns end node
+	 * Returns end node
 	 * 
 	 * @return end node of edge
 	 */
@@ -25,7 +25,7 @@ abstract class Edge<V> implements CapacityEdge<V>, ExerciseSubmission {
 	}
 
 	/**
-	 * returns start node
+	 * Returns start node
 	 * 
 	 * @return start node of edge
 	 */
@@ -35,7 +35,7 @@ abstract class Edge<V> implements CapacityEdge<V>, ExerciseSubmission {
 	}
 
 	/**
-	 * returns capacity
+	 * Returns capacity
 	 * 
 	 * @return capacity of edge
 	 */
@@ -43,8 +43,8 @@ abstract class Edge<V> implements CapacityEdge<V>, ExerciseSubmission {
 		return capacity;
 	}
 	/**
-	 * sets capacity
-	 * @param capacity the value of the new capacity
+	 * Sets capacity
+	 * @param capacity the integer value of the new capacity
 	 * @throws IllegalArgumentException if capacity is smaller than zero
 	 */
 
