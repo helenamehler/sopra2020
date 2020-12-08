@@ -15,8 +15,8 @@ import java.util.HashMap;
 
 /**
  * This class describes a flow graph through a hashmap. The keys of the hashmap
- * are start nodes and the values are new hashmaps. These inner hashmaps have as
- * keys the end nodes and capacity of the edges
+ * are start nodes and the values are new hashmaps. The keys of the inner
+ * hashmap are the end nodes, the values are the capacity of the edges
  * 
  * @author G03T03
  */
@@ -26,14 +26,15 @@ public class FlowGraphImpl<V> implements FlowGraph<V>, ExerciseSubmission {
 	private Map<V, Map<V, FlowEdge<V>>> flowGraph;
 
 	/**
-	 * Constructor of FlowGraphImpl which implements outer HashMap
+	 * Constructor of FlowGraphImpl which instantiate outer HashMap
 	 */
 	public FlowGraphImpl() {
 		flowGraph = new HashMap<V, Map<V, FlowEdge<V>>>();
 	}
 
 	/**
-	 * Adds new node to flow graph, returns true if successful. If node already exists or null is, returns false
+	 * Adds new node to flow graph, returns true if successful. If node already
+	 * exists or if it is null, returns false
 	 * 
 	 * @param node Node to add
 	 * @return true if the node was successfully added, false otherwise.
@@ -43,28 +44,29 @@ public class FlowGraphImpl<V> implements FlowGraph<V>, ExerciseSubmission {
 			return false;
 		}
 		HashMap<V, FlowEdge<V>> innerFlowGraph = new HashMap<V, FlowEdge<V>>();
-		flowGraph.put(node, innerFlowGraph); // leere innereMap
+		flowGraph.put(node, innerFlowGraph);
 		return true;
 
 	}
 
 	/**
-	 * Adds new flow edge with flow = 0.
-	 * If start or destination node does not exist in graph, throws an
-	 * NoSuchElementException. Returns the existing edge if edge already exists.
+	 * Adds new flow edge with flow = 0. If start or destination node does not exist
+	 * in graph, throws a NoSuchElementException. Returns the existing edge if edge
+	 * already exists.
 	 * 
-	 * @param start start node of edge
-	 * @param end end node of edge
+	 * @param start    start node of edge
+	 * @param end      end node of edge
 	 * @param capacity capacity of edge
-	 * @return created flow edge between start and destination node
-	 * @exception NoSuchElementException if start or end node does not exist in graph
+	 * @return created flow edge between start and destination node or existing edge
+	 * @exception NoSuchElementException if start or end node does not exist in
+	 *                                   graph
 	 */
 
 	public FlowEdge<V> addEdge(V start, V end, int capacity) throws NoSuchElementException {
 		if (!flowGraph.containsKey(start) || !flowGraph.containsKey(end)) {
 			throw new NoSuchElementException("Start or End Node do not exist in Graph.");
 		}
-		if(getEdge(start, end) != null) {
+		if (getEdge(start, end) != null) {
 			return getEdge(start, end);
 		}
 		FlowEdge<V> newEdge = new FlowEdgeImpl<V>(start, end, capacity);
@@ -75,11 +77,10 @@ public class FlowGraphImpl<V> implements FlowGraph<V>, ExerciseSubmission {
 	}
 
 	/**
-	 * Returns true if the given node exists in graph. Else returns
-	 * false
+	 * Returns true if the given node is contained in graph. Else returns false
 	 * 
 	 * @param node node to be tested if contained in graph
-	 * @return true if node is contained in the graph otherwise false
+	 * @return true if node exists in the graph otherwise false
 	 */
 	public boolean containsNode(V node) {
 		if (flowGraph.containsKey(node)) {
@@ -89,18 +90,18 @@ public class FlowGraphImpl<V> implements FlowGraph<V>, ExerciseSubmission {
 	}
 
 	/**
-	 * Returns every edge from given node. If node is not in the graph, throws
-	 * a NoSuchElementException.
+	 * Returns every edge from given node. If node is not in the graph, throws a
+	 * NoSuchElementException.
 	 * 
 	 * @param node node whose edges should be retrieved
 	 * @return A collection of all flow edges from the node
-	 * @exception NoSuchElementException if node is null
+	 * @exception NoSuchElementException if node is null or not in the graph
 	 */
 	public Collection<FlowEdge<V>> edgesFrom(V node) throws NoSuchElementException {
 		if (node == null) {
 			throw new NoSuchElementException("Node is not allowed to be null.");
 		}
-		if(!containsNode(node)) {
+		if (!containsNode(node)) {
 			throw new NoSuchElementException("Node is not in the graph.");
 		}
 		Map<V, FlowEdge<V>> innerMap = flowGraph.get(node);
@@ -108,18 +109,25 @@ public class FlowGraphImpl<V> implements FlowGraph<V>, ExerciseSubmission {
 	}
 
 	/**
-	 * Returns a flow edge which goes from a given start to a given end.
-	 * going from start to end. Returns null if a flow edge between those given nodes or at least one parameter is null
+	 * Returns a flow edge which goes from a given start to a given end. Returns
+	 * null if a flow edge between those given nodes does not exist or if at least
+	 * one parameter is null
 	 * 
 	 * @param start start of this edge
-	 * @param end end of this edge
+	 * @param end   end of this edge
 	 * @return the flow edge between those nodes
 	 */
 	public FlowEdge<V> getEdge(V start, V end) {
 		if (start == null || end == null) {
 			return null;
 		}
+		if(!flowGraph.containsKey(start)) {
+			return null;
+		}
 		Map<V, FlowEdge<V>> innerMap = flowGraph.get(start);
+		if(!innerMap.containsKey(end)) {
+			return null;
+		}
 		return innerMap.get(end);
 	}
 
