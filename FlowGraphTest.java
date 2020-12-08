@@ -1,6 +1,8 @@
 package solutions.exercise3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
@@ -14,7 +16,13 @@ import org.sopra.api.exercises.exercise3.AbstractFlowGraphTest;
 import org.sopra.api.exercises.exercise3.FlowEdge;
 
 public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubmission {
-
+	
+	/**
+	 * Returns Team Identifier
+	 * 
+	 * @return String with team identifier
+	 */
+	
 	public String getTeamIdentifier() {
 		return "G03T03";
 	}
@@ -68,8 +76,8 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 
 		FlowEdge<String> test = sut.getEdge("u", "s");
 		List<FlowEdge<String>> allEdges = sut.getEdges();
-		assertEquals(compare(test, edges[1]), true);
-		assertEquals(allEdges.contains(test), true);
+		assertTrue(compare(test, edges[1]));
+		assertTrue(allEdges.contains(test));
 
 	}
 
@@ -78,8 +86,8 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 		nodesAdd();
 
 		FlowEdge<String> test = sut.addEdge("t", "u", 4);
-		assertEquals(compare(edges[6], test), true);
-		assertEquals(compare(sut.getEdge("t", "u"), test), true);
+		assertTrue(compare(edges[6], test));
+		assertTrue(compare(sut.getEdge("t", "u"), test));
 		assertEquals(sut.addEdge("t", "u", 4), test);
 		assertEquals(test.getFlow(), 0);
 
@@ -98,22 +106,21 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 
 	@Test
 	public void test_addNode() {
-		assertEquals(sut.addNode("s"), true);
-		assertEquals(sut.getNodes().contains(nodes[0]), true);
-		assertEquals(sut.addNode("s"), false);
-		assertEquals(sut.addNode(null), false);
+		assertTrue(sut.addNode("s"));
+		assertTrue(sut.getNodes().contains(nodes[0]));
+		assertFalse(sut.addNode("s"));
+		assertFalse(sut.addNode(null));
 	}
 
 	@Test
 	public void test_containsNode() {
 		nodesAdd();
 		EdgesAdd();
-
-		assertEquals(sut.containsNode("a"), false);
-		assertEquals(sut.containsNode("s"), true);
-		assertEquals(sut.containsNode("t"), true);
-		assertEquals(sut.containsNode("u"), true);
-		assertEquals(sut.containsNode("v"), true);
+		assertTrue(sut.containsNode("s"));
+		assertTrue(sut.containsNode("t"));
+		assertTrue(sut.containsNode("u"));
+		assertTrue(sut.containsNode("v"));
+		assertFalse(sut.containsNode("a"));
 
 	}
 
@@ -140,9 +147,9 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 
 		List<FlowEdge<String>> list2 = sut.getEdges();
 		assertEquals(edges.length, list2.size());
-		assertEquals(list2.contains(edge1), true);
-		assertEquals(list2.contains(edge2), true);
-		assertEquals(list2.contains(edge3), true);
+		assertTrue(list2.contains(edge1));
+		assertTrue(list2.contains(edge2));
+		assertTrue(list2.contains(edge3));
 
 	}
 
@@ -152,14 +159,14 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 		if (list1 == null) {
 			fail();
 		}
-		assertEquals(list1.isEmpty(), true);
+		assertTrue(list1.isEmpty());
 
 		nodesAdd();
 
 		Set<String> test = sut.getNodes();
 		assertEquals(test.size(), nodes.length);
 		for (int i = 0; i < nodes.length; i++) {
-			assertEquals(test.contains(nodes[i]), true);
+			assertTrue(test.contains(nodes[i]));
 		}
 	}
 
@@ -183,9 +190,9 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 		if (test == null) {
 			fail();
 		}
-		assertEquals(test.contains(edge2), true);
-		assertEquals(test.contains(edge4), true);
-		assertEquals(test.contains(edge5), true);
+		assertTrue(test.contains(edge2));
+		assertTrue(test.contains(edge4));
+		assertTrue(test.contains(edge5));
 		assertEquals(test.size(), 3);
 
 		// here i make another test because there was an error in the framework which
@@ -199,8 +206,8 @@ public class FlowGraphTest extends AbstractFlowGraphTest implements ExerciseSubm
 		if (test2 == null) {
 			fail();
 		}
-		assertEquals(test2.contains(edge1), true);
-		assertEquals(test2.contains(edge3), true);
+		assertTrue(test2.contains(edge1));
+		assertTrue(test2.contains(edge3));
 		assertEquals(test2.size(), 2);
 
 		try {
