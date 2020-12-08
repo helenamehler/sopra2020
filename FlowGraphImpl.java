@@ -100,6 +100,9 @@ public class FlowGraphImpl<V> implements FlowGraph<V>, ExerciseSubmission {
 		if (node == null) {
 			throw new NoSuchElementException("Node is not allowed to be null.");
 		}
+		if(!containsNode(node)) {
+			throw new NoSuchElementException("Node is not in the graph.");
+		}
 		Map<V, FlowEdge<V>> innerMap = flowGraph.get(node);
 		return innerMap.values();
 	}
