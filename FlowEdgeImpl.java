@@ -15,7 +15,7 @@ public class FlowEdgeImpl<V> extends Edge<V> implements FlowEdge<V>, ExerciseSub
 	private int flow;
 
 	/**
-	 * Constructor which sets start + end node, capacity of the edge and sets flow to zero
+	 * Constructor of FlowEdgeImpl which sets start + end node, capacity of the edge and initialize flow to zero
 	 * 
 	 * @param startNode start node of the edge
 	 * @param endNode end node of the edge
@@ -28,7 +28,7 @@ public class FlowEdgeImpl<V> extends Edge<V> implements FlowEdge<V>, ExerciseSub
 		flow = 0;
 	}
 	/**
-	 * returns flow 
+	 * Returns flow 
 	 * @return flow of the edge
 	 */
 
@@ -36,7 +36,7 @@ public class FlowEdgeImpl<V> extends Edge<V> implements FlowEdge<V>, ExerciseSub
 		return flow;
 	}
 	/**
-	 * sets new flow value
+	 * Sets new flow value
 	 * @param flow the value of the new flow
 	 * @throws IllegalArgumentException if flow is smaller than zero
 	 */
