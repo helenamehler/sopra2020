@@ -14,7 +14,7 @@ public class ResidualEdgeImpl<V> extends Edge<V> implements ResidualEdge<V>, Exe
 	private ResidualEdge<V> reverseEdge;
 
 	/**
-	 * Constructor which sets start + end node and capacity of the edge
+	 * Constructor of ResidualEdgeImpl which sets start + end node and capacity of the edge
 	 * 
 	 * @param startNode start node of the edge
 	 * @param endNode   end node of the edge
@@ -27,10 +27,10 @@ public class ResidualEdgeImpl<V> extends Edge<V> implements ResidualEdge<V>, Exe
 	}
 
 	/**
-	 * adds a positive/negative flow to an edge by decreasing/increasing capacity
+	 * Adds a positive/negative flow to an edge by decreasing/increasing capacity
 	 * and increasing/decreasing capacity of reverse edge
 	 * 
-	 * @param amount the amount of flow to be added
+	 * @param amount the amount of flow to be added or subtracted
 	 * @throws IllegalArgumentException if absolute of to be added flow is bigger
 	 *                                  than capacity
 	 */
@@ -44,7 +44,7 @@ public class ResidualEdgeImpl<V> extends Edge<V> implements ResidualEdge<V>, Exe
 	}
 
 	/**
-	 * returns reverse edge
+	 * Returns reverse edge
 	 * 
 	 * @return reverse edge of residual edge
 	 */
@@ -54,7 +54,7 @@ public class ResidualEdgeImpl<V> extends Edge<V> implements ResidualEdge<V>, Exe
 	}
 
 	/**
-	 * sets reverse edge
+	 * Sets reverse edge
 	 * 
 	 * @param reverse the new reverse edge
 	 */
