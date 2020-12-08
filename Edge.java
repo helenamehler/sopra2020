@@ -3,23 +3,50 @@ package solutions.exercise3;
 import org.sopra.api.exercises.ExerciseSubmission;
 import org.sopra.api.model.CapacityEdge;
 
+/**
+ * This is an abstract class to describe an edge of a weighted graph
+ * 
+ * @author G03T03
+ *
+ */
 abstract class Edge<V> implements CapacityEdge<V>, ExerciseSubmission {
 
 	protected int capacity;
-	protected V start;
-	protected V end;
+	protected V startNode;
+	protected V endNode;
 
+	/**
+	 * returns end node
+	 * 
+	 * @return end node of edge
+	 */
 	public V getEnd() {
-		return end;
+		return endNode;
 	}
+
+	/**
+	 * returns start node
+	 * 
+	 * @return start node of edge
+	 */
 
 	public V getStart() {
-		return start;
+		return startNode;
 	}
-	
+
+	/**
+	 * returns capacity
+	 * 
+	 * @return capacity of edge
+	 */
 	public int getCapacity() {
 		return capacity;
 	}
+	/**
+	 * sets capacity
+	 * @param capacity the value of the new capacity
+	 * @throws IllegalArgumentException if capacity is smaller than zero
+	 */
 
 	public void setCapacity(int capacity) throws IllegalArgumentException {
 		if (capacity < 0) {
@@ -28,13 +55,11 @@ abstract class Edge<V> implements CapacityEdge<V>, ExerciseSubmission {
 		this.capacity = capacity;
 	}
 
-
-
 	/**
 	 * Returns Team Identifier
+	 * 
 	 * @return String with team identifier
 	 */
-
 	public String getTeamIdentifier() {
 		return "G03T03";
 	}
