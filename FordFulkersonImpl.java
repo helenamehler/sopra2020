@@ -42,7 +42,7 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		if (start == null || end == null || graph == null) {
 			throw new IllegalArgumentException("Either start or end node or graph is null.");
 		}
-		waitingLine.add(start);
+		waitingLine.add(start); //kann das auch einfach mit pop() gleich entfernen - Felix
 		relation.put(start, null);
 
 		List<ResidualEdge<V>> children = graph.edgesFrom(start);
