@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.sopra.api.exercises.ExerciseSubmission;
+import org.sopra.api.exercises.exercise3.FlowEdge;
 import org.sopra.api.exercises.exercise3.FlowGraph;
 import org.sopra.api.exercises.exercise3.ResidualEdge;
 import org.sopra.api.exercises.exercise3.ResidualGraph;
@@ -20,12 +21,13 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 	Map<V, V> relation = new HashMap<V, V>(); // Map with key = child, value = parent
 	Deque<V> finished = new ArrayDeque<V>();
 	boolean found = false;
+	int minimumCapacity;
 
 	public void augmentPath(Deque<ResidualEdge<V>> path) throws IllegalArgumentException {
 		if (path == null) {
 			throw new IllegalArgumentException("Path is null.");
 		}
-		int minimumCapacity = path.getFirst().getCapacity();
+		minimumCapacity = path.getFirst().getCapacity();
 		for (ResidualEdge<V> elem : path) {
 			if (elem.getCapacity() < minimumCapacity) {
 				minimumCapacity = elem.getCapacity();
@@ -42,7 +44,7 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		if (start == null || end == null || graph == null) {
 			throw new IllegalArgumentException("Either start or end node or graph is null.");
 		}
-		waitingLine.add(start); //kann das auch einfach mit pop() gleich entfernen - Felix
+		waitingLine.add(start);
 		relation.put(start, null);
 
 		List<ResidualEdge<V>> children = graph.edgesFrom(start);
@@ -58,7 +60,7 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		waitingLine.remove();
 		while (!waitingLine.isEmpty() && !found) {
 			search(graph, waitingLine.getFirst(), end);
-			waitingLine.remove();//node wurde schon aus der waiting line rausgeschmissen obwohl die node dort noch für die Überprüfung in search() gebraucht wurde, somit wurden a,a ... relations geschaffen, die eine loop erzeugt haben
+			waitingLine.remove();
 		}
 
 		V value = relation.get(end);
@@ -116,11 +118,13 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		}
 		ResidualGraph<V> res = new ResidualGraphImpl<V>(graph);
 		Deque<ResidualEdge<V>> way = findPath(start, target, res);
-		int flow = 3;
-		int help = 0;
 		while(way != null) {
 			
 			augmentPath(way);
+			for(ResidualEdge<V> edge : way) {
+				FlowEdge<V> flowEdge = graph.getEdge(edge.getStart(), edge.getEnd());
+				if(flowEdge != null) {flowEdge.setFlow(minimumCapacity +flowEdge.getFlow());}
+			}
 			way = findPath(start, target, res);
 	}
 		
