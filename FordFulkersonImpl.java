@@ -57,7 +57,8 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		finished.add(start);
 		waitingLine.remove();
 		while (!waitingLine.isEmpty() && !found) {
-			search(graph, waitingLine.remove(), end);
+			search(graph, waitingLine.getFirst(), end);
+			waitingLine.remove();//node wurde schon aus der waiting line rausgeschmissen obwohl die node dort noch für die Überprüfung in search() gebraucht wurde, somit wurden a,a ... relations geschaffen, die eine loop erzeugt haben
 		}
 
 		V value = relation.get(end);
