@@ -1,6 +1,7 @@
 package solutions.exercise4;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayDeque;
@@ -174,7 +175,7 @@ public class FordFulkersonTest extends AbstractFordFulkersonTest implements Exer
 	@Test
 	public void test_findPath_IsNull() {
 
-		assertEquals(sut.findPath("s", "t", new ResidualGraphImpl<String>(flowGraph3)), null);
+		assertNull(sut.findPath("s", "t", new ResidualGraphImpl<String>(flowGraph3)));
 	}
 
 	@Test
