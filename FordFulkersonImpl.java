@@ -23,6 +23,15 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 	boolean found = false;
 	int minimumCapacity;
 
+	/**
+	 * Finds the minimum capacity of the given residual path. Adds this minimum
+	 * capacity to flow of each residual edges of the path.
+	 * 
+	 * @param path a double ended queue with residual edges. The found minimum
+	 *             capacity is added to these edges as flow
+	 * @throws IllegalArgumentException if path is null
+	 *
+	 */
 	public void augmentPath(Deque<ResidualEdge<V>> path) throws IllegalArgumentException {
 		if (path == null) {
 			throw new IllegalArgumentException("Path is null.");
@@ -38,6 +47,19 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		}
 	}
 
+	/**
+	 * finds the shortest path with remaining capacity using Breadth-First-Search
+	 * (BFS) on a residual graph. this method uses search(...) to use BFS. the
+	 * accessibility tree it represented by a hashmap. the values are the parent
+	 * nodes and the keys the children.
+	 * 
+	 * @param start start node of the wanted path
+	 * @param end   end node of the wanted path
+	 * @param graph residual graph to search in
+	 * @return path (represented by a double ended queue) from end to start or null
+	 *         if there is no path with remaining capacity
+	 * @throws IllegalArgumentException if any parameter is null
+	 */
 	public Deque<ResidualEdge<V>> findPath(V start, V end, ResidualGraph<V> graph) throws IllegalArgumentException {
 		Deque<ResidualEdge<V>> way = new ArrayDeque<ResidualEdge<V>>();
 
@@ -90,7 +112,17 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		return null;
 	}
 
-	public void search(ResidualGraph<V> graph, V node, V end) {
+	/**
+	 * implements the BFS by retrieving all edges from the given node and their end
+	 * nodes. It adds the end nodes, if not already used, to the waiting line and as
+	 * a key in the hashmap with the node as parent
+	 * 
+	 * @param graph residual graph to search in
+	 * @param node  node which edges will be retrieved
+	 * @param end   end node of the wanted path. if node has an edge with the target
+	 *              node, search will be stopped
+	 */
+	public void search(ResidualGraph<V> graph, V node, V target) {
 
 		List<ResidualEdge<V>> children = graph.edgesFrom(node);
 		for (ResidualEdge<V> edge : children) {
@@ -98,7 +130,7 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 				waitingLine.add(edge.getEnd());
 
 				relation.put(edge.getEnd(), node);
-				if (edge.getEnd() == end) {
+				if (edge.getEnd() == target) {
 					found = true;
 					return;
 				}
@@ -108,6 +140,16 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 
 	}
 
+	/**
+	 * Given a flow network, a start node and a target node, the maximum flow is
+	 * calculated from start to target in this given network.
+	 * 
+	 * @param graph  a flow graph. the flows along the edges will be set to max flow
+	 * @param start  start node
+	 * @param target end node
+	 * @throws IllegalArgumentException if any parameter is null
+	 * @throws NoSuchElementException   if start or target are not in the graph
+	 */
 	public void findMaxFlow(FlowGraph<V> graph, V start, V target)
 			throws IllegalArgumentException, NoSuchElementException {
 		if (start == null || target == null || graph == null) {
@@ -118,19 +160,24 @@ public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmissio
 		}
 		ResidualGraph<V> res = new ResidualGraphImpl<V>(graph);
 		Deque<ResidualEdge<V>> way = findPath(start, target, res);
-		while(way != null) {
-			
+		while (way != null) {
+
 			augmentPath(way);
-			for(ResidualEdge<V> edge : way) {
+			for (ResidualEdge<V> edge : way) {
 				FlowEdge<V> flowEdge = graph.getEdge(edge.getStart(), edge.getEnd());
-				if(flowEdge != null) {flowEdge.setFlow(minimumCapacity +flowEdge.getFlow());}
+				if (flowEdge != null) {
+					flowEdge.setFlow(minimumCapacity + flowEdge.getFlow());
+				}
 			}
 			way = findPath(start, target, res);
-	}
-		
+		}
 
 	}
-
+	/**
+	 * Returns Team Identifier
+	 * 
+	 * @return String with team identification
+	 */
 	public String getTeamIdentifier() {
 		return "G03T03";
 	}
