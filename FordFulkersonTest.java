@@ -20,7 +20,6 @@ public class FordFulkersonTest extends AbstractFordFulkersonTest implements Exer
 	
 	
 	@Test
-	// TODO
 	public void test_findMaxFlow_ParameterStartIsNull() {
 		try {
 			sut.findMaxFlow(flowGraph1, null, "t");
