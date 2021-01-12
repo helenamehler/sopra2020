@@ -16,6 +16,11 @@ import org.sopra.api.exercises.exercise4.FordFulkerson;
 
 import solutions.exercise3.ResidualGraphImpl;
 
+/**
+ * This class implements the Ford-Fulkerson-Algorithm with a generic type V
+ * 
+ * @author G03T03
+ */
 public class FordFulkersonImpl<V> implements FordFulkerson<V>, ExerciseSubmission {
 	Deque<V> waitingLine = new ArrayDeque<V>();
 	Map<V, V> relation = new HashMap<V, V>(); // Map with key = child, value = parent
