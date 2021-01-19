@@ -127,10 +127,9 @@ public class EnergyNetworkAnalyzerImpl extends AbstractEnergyNetworkAnalyzer imp
 	}
 
 	/**
-	 * get team identifier
-	 * 
-	 * @return team identifier
-	 */
+	* Returns Team Identifier
+	* @return String with team identification
+	*/
 	public String getTeamIdentifier() {
 		return "G03T03";
 	}
