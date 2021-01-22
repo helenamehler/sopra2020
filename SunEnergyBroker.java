@@ -70,27 +70,27 @@ public class SunEnergyBroker extends AbstractSunEnergyBroker implements Exercise
 				break;
 		
 		//increase to 30% 
-		case 1: 
+		case 2: 
 				changeConsumption(iplist, mp30, scenario, true); 
 				break;	
 		//increase to 60%
-		case 4:	changeConsumption(iplist, mp30, scenario, true); 
+		case 5:	changeConsumption(iplist, mp30, scenario, true); 
 				break;	
 			
 		//increase to 100%
-		case 7: changeConsumption(iplist, mp40, scenario, true); 
+		case 6: changeConsumption(iplist, mp40, scenario, true); 
 				break;	
 			
 		//decrease to 60%
-		case 12: changeConsumption(iplist, mp40, scenario, false); 
+		case 13: changeConsumption(iplist, mp40, scenario, false); 
 				 break;
 			
 		//decrease to 30%
-		case 15: changeConsumption(iplist, mp30, scenario, false); 
+		case 16 changeConsumption(iplist, mp30, scenario, false); 
 				 break;
 			
 		//decrease to 0%
-		case 19: changeConsumption(iplist, mp30, scenario, false); 
+		case 20: changeConsumption(iplist, mp30, scenario, false); 
 		 		 break;	
 		default: break;	
 		}
